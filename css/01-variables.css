@@ -28,9 +28,9 @@
 
   /* ---- Spacing ---- */
   --gutter: clamp(16px, 3vw, 44px);   /* space at the screen edges */
-  --nav-h: 72px;                      /* room for the menu at the top */
+  --nav-h: 84px;                      /* room for the menu at the top */
 
   /* ---- Cat bits ---- */
-  --cat-size: 60px;
+  --cat-size: 78px;
   --scroll-progress: 0;               /* 0 → 1, set by js/05-guide-cat.js */
 }

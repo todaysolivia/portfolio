@@ -135,7 +135,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--nav-h) + 1vh) 0 3vh;
+  padding: calc(var(--nav-h) + 1vh) 0 64px;   /* bottom room for the progress line */
 }
 .about__title {
   padding: 0 var(--gutter);
@@ -237,11 +237,12 @@
 /* =========================================================
    4 · NINE LIVES — study (a numbered row) and skills
    ========================================================= */
-.lives { display: grid; align-content: center; padding: calc(var(--nav-h) + 2vh) var(--gutter) 64px; background: var(--black); }   /* bottom room for the progress line */
-.has-stage .lives__beat { grid-area: 1 / 1; }
-.has-stage .lives__beat--skills { visibility: hidden; }
-.lives__beat--skills { margin-top: 12vh; }
-.has-stage .lives__beat--skills { margin-top: 0; }
+.lives { display: grid; align-content: center; padding: calc(var(--nav-h) + 2vh) var(--gutter) 76px; background: var(--black); }   /* bottom room for the progress line */
+.has-stage .lives__beat { grid-area: 1 / 1; align-self: center; }   /* each part centred on the screen */
+.has-stage .lives__beat--skills,
+.has-stage .lives__beat--process { visibility: hidden; }        /* JavaScript shows them in turn */
+.lives__beat--skills, .lives__beat--process { margin-top: 12vh; }
+.has-stage .lives__beat--skills, .has-stage .lives__beat--process { margin-top: 0; }
 
 .lives__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 9vw, 156px); line-height: .85; color: var(--petal); }
 .lives__sub { max-width: 34ch; margin: 1.4vh 0 3vh; font-family: var(--font-serif); font-weight: 500; font-size: clamp(18px, 1.8vw, 28px); color: rgb(255 243 242 / 75%); }
@@ -255,38 +256,48 @@
 .timeline__item h3 { margin: .35em 0 .25em; font-family: var(--font-serif); font-weight: 500; font-size: clamp(20px, 1.9vw, 30px); line-height: 1.1; }
 .timeline__item p { max-width: 26ch; font-size: 15px; opacity: .7; }
 
-.skills__head { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); }
-.skills__yarn { flex: none; width: clamp(64px, 9vw, 140px); }
-.lives__title--small { font-size: clamp(44px, 6.2vw, 104px); }
-.skills__note { margin-top: .7em; font-size: 15px; color: rgb(255 243 242 / 70%); }
-.skills__note em { color: var(--petal); }
-.skills__fave-key, .skills__group li.is-fave::after { color: var(--rose); }
-.skills__group li.is-fave::after { content: " ✦"; font-size: .7em; vertical-align: super; }
+/* ---- Part 2: the toy box ---- */
+.toybox__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 30px; }
+.lives__title--small { font-size: clamp(44px, 6vw, 100px); }
+.toybox__key { font-size: 15px; color: rgb(255 243 242 / 70%); }
+.toybox__key span, .toy li.is-fave::after { color: var(--rose); }
 
-.skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.6vw; margin-top: 4vh; }
-.skills__group h3 { margin-bottom: .3em; font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 4vw, 66px); color: var(--rose); }
-.skills__group li { display: block; width: fit-content; font-family: var(--font-serif); font-weight: 500; font-size: clamp(17px, 1.6vw, 26px); line-height: 1.22; }
+.toybox { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3vw; margin-top: 5vh; }
+.toy { text-align: center; }
+.toy__art { display: block; width: clamp(84px, 10vw, 156px); margin: 0 auto 1.4vh; overflow: visible; }
+.toy h3 { margin-bottom: .45em; font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 2.8vw, 46px); color: var(--rose); }
+.toy li { display: block; width: fit-content; margin: 0 auto; font-family: var(--font-serif); font-weight: 500; font-size: clamp(17px, 1.55vw, 25px); line-height: 1.45; }
+.toy li.is-fave::after { content: " ✦"; font-size: .7em; vertical-align: super; }
+.toy:hover .toy__art { animation: toy-wiggle .5s ease-in-out; }
+@keyframes toy-wiggle { 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
 
-/* "how I untangle a problem": five knots on a strand of yarn */
-.process { margin-top: 4.5vh; }
-.process__title { margin-bottom: .2em; font-family: var(--font-serif); font-weight: 500; font-size: clamp(18px, 1.6vw, 26px); color: var(--petal); }
-.process__thread { display: block; width: 100%; height: 60px; overflow: visible; }
-.process__thread path { fill: none; stroke: var(--rose); stroke-width: 3px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.process__steps { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: -60px; }
-.process__steps li { position: relative; padding-top: 52px; text-align: center; }
+.toybox__paw { display: none; }
+.has-stage .toybox__paw { display: block; position: absolute; left: 0; top: 0; width: clamp(70px, 6.5vw, 110px); color: var(--black); filter: drop-shadow(0 0 1.5px var(--petal)); pointer-events: none; }
+
+/* ---- Part 3: the process ---- */
+.process { position: relative; margin-top: 7vh; padding-right: clamp(90px, 10vw, 150px); }
+.process__thread { display: block; width: 100%; height: 80px; overflow: visible; }
+.process__thread path { fill: none; stroke: var(--rose); stroke-width: 4px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.process__steps { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: -80px; }
+.process__steps li { position: relative; padding-top: 70px; text-align: center; }
 .process__knot {
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 50%;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
   border-radius: 50%;
   background: var(--petal);
-  box-shadow: 0 0 0 4px var(--black), 0 0 16px 2px var(--rose);
+  box-shadow: 0 0 0 5px var(--black), 0 0 18px 3px var(--rose);
 }
-.process__steps strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(18px, 1.7vw, 28px); line-height: 1.1; }
-.process__steps li > span:last-child { display: block; margin-top: 2px; font-size: 13px; opacity: .65; }
+.process__steps strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(20px, 2.4vw, 38px); line-height: 1.1; }
+.process__steps li > span:last-child { display: block; margin-top: 4px; font-size: 15px; opacity: .65; }
+.process__cat { position: absolute; right: 0; top: 0; width: clamp(90px, 9vw, 140px); overflow: visible; filter: drop-shadow(0 0 1.5px var(--petal)); }
+
+.process__learning { display: flex; align-items: center; gap: 14px; margin-top: 8vh; font-family: var(--font-serif); font-weight: 500; font-size: clamp(17px, 1.5vw, 24px); color: rgb(255 243 242 / 75%); }
+.process__learning svg { flex: none; width: 40px; }
+.process__learning em { color: var(--petal); }
 
 
 /* =========================================================
@@ -414,7 +425,7 @@
 }
 .say-hi__cat { position: absolute; z-index: 2; right: 17vw; bottom: 17.2vw; width: clamp(100px, 13vw, 210px); color: var(--black); }
 .zzz { fill: var(--snow); font-family: var(--font-display); font-size: 15px; }
-.say-hi__footer { position: absolute; z-index: 2; left: var(--gutter); bottom: 34px; font-size: 13px; color: var(--petal); }
+.say-hi__footer { position: absolute; z-index: 2; left: var(--gutter); bottom: 56px; font-size: 13px; color: var(--petal); }
 
 
 /* =========================================================
@@ -445,14 +456,17 @@
   .lives__meter { margin-bottom: 4vh; }
   .timeline { grid-template-columns: 1fr 1fr; row-gap: 3vh; }
   .timeline__item p { font-size: 13px; }
-  .skills { grid-template-columns: 1fr 1fr; gap: 2.4vh 5vw; margin-top: 3vh; }
-  .skills__group li { font-size: 15px; line-height: 1.3; }
-  .skills__group h3 { font-size: 24px; }
-  .skills__note { font-size: 13px; }
   .lives__title--small { font-size: 40px; }
-  .process { margin-top: 2.5vh; }
+  .toybox__key { font-size: 13px; }
+  .toybox { grid-template-columns: 1fr 1fr; gap: 3vh 6vw; margin-top: 3vh; }
+  .toy__art { width: 58px; margin-bottom: 4px; }
+  .toy h3 { font-size: 22px; }
+  .toy li { font-size: 15px; line-height: 1.35; }
+  .process { margin-top: 5vh; padding-right: 0; padding-top: 90px; }
+  .process__cat { width: 80px; right: 4px; }
   .process__steps strong { font-size: 14px; }
   .process__steps li > span:last-child { display: none; }
+  .process__learning { font-size: 15px; align-items: flex-start; }
 
   .work__title { font-size: 120px; }
   .work__note { left: var(--gutter); right: auto; text-align: left; font-size: 19px; }

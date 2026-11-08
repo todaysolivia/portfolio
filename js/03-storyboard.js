@@ -32,9 +32,16 @@ function buildStoryboard() {
   // the claw tear needs copies of the hello section before anything animates it
   prepareClawTear();
 
+  const menuLinks = document.querySelectorAll(".nav__links a");
   const story = gsap.timeline({
     paused: true,
-    onUpdate: () => document.documentElement.classList.toggle("on-light", LIGHT_SECTIONS.includes(story.currentLabel())),
+    onUpdate: () => {
+      const current = story.currentLabel();
+      // light sections get a black menu
+      document.documentElement.classList.toggle("on-light", LIGHT_SECTIONS.includes(current));
+      // the menu link for the section you're in gets the wavy underline
+      menuLinks.forEach((link) => link.classList.toggle("is-current", link.dataset.goto === current));
+    },
   });
 
   story

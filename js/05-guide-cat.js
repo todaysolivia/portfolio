@@ -3,7 +3,7 @@
    ---------------------------------------------------------
    • A small cat walks along the line at the bottom of the
      screen, showing how far through the site you are.
-   • The line has one stop per section ("hello", "about"…).
+   • The line has one paw-print stop per section ("hello", "about"…).
      The current one glows; tap any stop to jump there.
    • DRAG the cat left/right to move through the site.
      Tap it (without dragging) and it meows.
@@ -58,7 +58,7 @@ function buildStops() {
   stops = sections.map((section) => {
     const item = document.createElement("li");
     item.className = "cat-stop";
-    item.innerHTML = `<button type="button" aria-label="Go to ${section.dataset.name}"></button>
+    item.innerHTML = `<button type="button" aria-label="Go to ${section.dataset.name}"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#paw-print"/></svg></button>
                       <span class="cat-stop__name" aria-hidden="true">${section.dataset.name}</span>`;
     item.querySelector("button").addEventListener("click", () => goTo(scrollYFor(section)));
     stopsList.append(item);

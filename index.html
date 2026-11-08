@@ -53,6 +53,25 @@
 </head>
 <body>
 
+  <!-- LOADING SCREEN: covers the page until fonts and animations are ready,
+       then lifts away (js/04-intro.js). A little cat walks while you wait. -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__cat" viewBox="0 0 120 90">
+      <path class="loader__tail" d="M28 50C10 46 8 28 16 16" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+      <rect class="loader__leg loader__leg--a" x="30" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+      <rect class="loader__leg loader__leg--b" x="42" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+      <rect class="loader__leg loader__leg--b" x="68" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+      <rect class="loader__leg loader__leg--a" x="80" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+      <rect x="24" y="40" width="68" height="30" rx="15" fill="currentColor"/>
+      <circle cx="90" cy="38" r="17" fill="currentColor"/>
+      <path d="M77 30L79 11L90 23ZM92 23L102 11L104 30Z" fill="currentColor"/>
+      <ellipse cx="88" cy="37" rx="3.2" ry="4.2" fill="#0B0507"/>
+      <ellipse cx="98" cy="37" rx="3.2" ry="4.2" fill="#0B0507"/>
+    </svg>
+    <span class="loader__ground"></span>
+    <p class="loader__name">olivia li</p>
+  </div>
+
   <!-- Reusable drawings: draw once, reuse with <use href="#name"/> -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
@@ -102,9 +121,10 @@
 
   <!-- ============ MENU ============ -->
   <nav class="nav" aria-label="Main">
-    <a class="nav__logo" href="#hello" data-goto="hello">olivia li</a>
+    <a class="nav__logo" href="#hello" data-goto="hello">olivia li<svg class="nav__spark" viewBox="0 0 100 100" aria-hidden="true"><use href="#sparkle"/></svg></a>
     <ul class="nav__links">
       <li><a href="#about" data-goto="about">about</a></li>
+      <li><a href="#nine-lives" data-goto="nine-lives">skills</a></li>
       <li><a href="#work" data-goto="work">work</a></li>
       <li><a href="#say-hi" data-goto="say-hi">say hi</a></li>
     </ul>
@@ -233,30 +253,73 @@
         </ol>
       </div>
 
+      <!-- Part 2: the toy box. A paw bats each toy and its skills tumble out.
+           EDIT: keep only the skills Olivia actually has. class="is-fave" adds the ✦ -->
       <div class="lives__beat lives__beat--skills">
-        <div class="skills__head">
-          <svg class="skills__yarn" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="46" fill="#F10291"/>
-            <path d="M10 40C35 25 70 30 92 52M8 60C35 45 72 52 88 74M20 80C40 64 66 70 76 90M30 10C24 40 30 70 52 96M60 6C50 30 56 60 80 84" fill="none" stroke="#FFCAE4" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h2 class="lives__title lives__title--small">untangling things</h2>
-            <!-- EDIT: what Olivia is learning right now -->
-            <p class="skills__note"><span class="skills__fave-key">✦</span> = what I reach for most &nbsp;·&nbsp; currently learning: <em>Framer, motion design, HTML &amp; CSS</em></p>
+        <div class="toybox__head">
+          <h2 class="lives__title lives__title--small">untangling things</h2>
+          <p class="toybox__key"><span>✦</span> = what I reach for most</p>
+        </div>
+
+        <div class="toybox">
+          <div class="toy">
+            <svg class="toy__art" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="46" fill="#F10291"/>
+              <path d="M20 50C45 35 80 40 104 62M18 70C45 55 82 62 98 84M30 92C50 76 76 82 86 100M40 18C34 50 40 80 62 106M72 14C60 40 66 70 92 94" fill="none" stroke="#FFCAE4" stroke-width="4" stroke-linecap="round"/>
+              <path d="M98 88C112 100 104 114 118 118" fill="none" stroke="#F10291" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <h3>tools</h3>
+            <ul><li class="is-fave">Figma</li><li class="is-fave">Illustrator</li><li class="is-fave">Photoshop</li><li>InDesign</li><li>FigJam</li></ul>
+          </div>
+
+          <div class="toy">
+            <svg class="toy__art" viewBox="0 0 120 120" aria-hidden="true">
+              <path d="M98 80C116 82 120 100 106 106C96 110 92 98 100 96" fill="none" stroke="#F10291" stroke-width="4" stroke-linecap="round"/>
+              <ellipse cx="62" cy="74" rx="38" ry="25" fill="#C6A4F2"/>
+              <circle cx="42" cy="52" r="13" fill="#C6A4F2"/><circle cx="42" cy="52" r="7" fill="#FFCAE4"/>
+              <circle cx="32" cy="70" r="3.5" fill="#0B0507"/><circle cx="24" cy="78" r="3.5" fill="#F10291"/>
+              <path d="M60 52C76 58 84 72 86 92" fill="none" stroke="#FFF3F2" stroke-width="2" stroke-dasharray="4 4"/>
+            </svg>
+            <h3>ux</h3>
+            <ul><li class="is-fave">Wireframing</li><li>User research</li><li>Personas &amp; journeys</li><li>Usability testing</li><li>Accessibility</li></ul>
+          </div>
+
+          <div class="toy">
+            <svg class="toy__art" viewBox="0 0 120 120" aria-hidden="true">
+              <path d="M16 114L62 30" stroke="#FFF3F2" stroke-width="5" stroke-linecap="round"/>
+              <path d="M62 30C80 28 88 44 86 58" fill="none" stroke="#FFCAE4" stroke-width="2"/>
+              <g transform="translate(86 62)">
+                <ellipse rx="8" ry="24" transform="rotate(-22) translate(0 18)" fill="#F10291"/>
+                <ellipse rx="7" ry="21" transform="rotate(14) translate(0 17)" fill="#FFCAE4"/>
+                <ellipse rx="6" ry="18" transform="rotate(46) translate(0 14)" fill="#C6A4F2"/>
+                <circle r="6" fill="#FFF3F2"/>
+              </g>
+            </svg>
+            <h3>ui</h3>
+            <ul><li class="is-fave">Prototyping</li><li class="is-fave">Typography</li><li>Interaction design</li><li>Design systems</li><li>Responsive design</li></ul>
+          </div>
+
+          <div class="toy">
+            <svg class="toy__art" viewBox="0 0 120 120" aria-hidden="true">
+              <path d="M18 60C38 30 78 30 94 60C78 90 38 90 18 60Z" fill="#FFCAE4"/>
+              <path d="M92 60L116 40V80Z" fill="#F10291"/>
+              <circle cx="36" cy="54" r="4.5" fill="#0B0507"/>
+              <path d="M52 46C59 54 59 66 52 74M66 44C73 54 73 66 66 76" fill="none" stroke="#F10291" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <h3>soft skills</h3>
+            <ul><li>Communication</li><li>Teamwork</li><li>Presenting ideas</li><li>Empathy</li><li>Taking feedback</li></ul>
           </div>
         </div>
 
-        <!-- EDIT: keep only the skills Olivia actually has. class="is-fave" adds the ✦ -->
-        <div class="skills">
-          <div class="skills__group"><h3>tools</h3><ul><li class="is-fave">Figma</li><li>FigJam</li><li class="is-fave">Illustrator</li><li class="is-fave">Photoshop</li><li>InDesign</li><li>Miro</li><li>Notion</li></ul></div>
-          <div class="skills__group"><h3>ux</h3><ul><li>User research</li><li>Interviews</li><li>Personas</li><li>Journey maps</li><li>Information architecture</li><li class="is-fave">Wireframing</li><li>Usability testing</li><li>Accessibility</li></ul></div>
-          <div class="skills__group"><h3>ui</h3><ul><li class="is-fave">Prototyping</li><li>Interaction design</li><li>Design systems</li><li>Responsive design</li><li class="is-fave">Typography</li><li>Colour &amp; layout</li><li>Branding</li></ul></div>
-          <div class="skills__group"><h3>soft skills</h3><ul><li>Communication</li><li>Teamwork</li><li>Presenting ideas</li><li>Empathy</li><li>Giving &amp; taking feedback</li><li>Problem solving</li></ul></div>
-        </div>
+        <!-- the paw that bats each toy -->
+        <svg class="toybox__paw" viewBox="0 0 200 330" aria-hidden="true"><use href="#paw"/></svg>
+      </div>
 
-        <!-- EDIT: Olivia's real process, in her words -->
+      <!-- Part 3: the process, on its own screen. EDIT: Olivia's real steps -->
+      <div class="lives__beat lives__beat--process">
+        <h2 class="lives__title lives__title--small">how I untangle a problem</h2>
+
         <div class="process">
-          <h3 class="process__title">how I untangle a problem</h3>
           <svg class="process__thread" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0 42C50 52 60 30 100 30S200 2 300 30S400 58 500 30S600 2 700 30S800 58 900 30S975 22 1000 26"/>
           </svg>
@@ -267,7 +330,22 @@
             <li><span class="process__knot"></span><strong>prototype</strong><span>make it clickable in Figma</span></li>
             <li><span class="process__knot"></span><strong>test &amp; tweak</strong><span>with real people, then again</span></li>
           </ol>
+          <!-- a cat playing with the end of the yarn -->
+          <svg class="process__cat" viewBox="0 0 120 100" aria-hidden="true">
+            <path class="process__cat-tail" d="M76 92C100 94 106 72 96 64" fill="none" stroke="#0B0507" stroke-width="7" stroke-linecap="round"/>
+            <path d="M38 94C36 72 44 56 60 56C76 56 84 72 82 94Z" fill="#0B0507"/>
+            <circle cx="60" cy="42" r="18" fill="#0B0507"/>
+            <path d="M45 34L46 14L58 27ZM62 27L74 14L75 34Z" fill="#0B0507"/>
+            <ellipse cx="53" cy="41" rx="3.6" ry="4.6" fill="#FFCAE4"/><ellipse cx="67" cy="41" rx="3.6" ry="4.6" fill="#FFCAE4"/>
+            <path class="process__cat-paw" d="M40 66C30 60 22 54 16 46" fill="none" stroke="#0B0507" stroke-width="9" stroke-linecap="round"/>
+          </svg>
         </div>
+
+        <!-- EDIT: what Olivia is learning right now -->
+        <p class="process__learning">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" fill="#C6A4F2"/><path d="M20 50C45 35 80 40 104 62M18 70C45 55 82 62 98 84M40 18C34 50 40 80 62 106" fill="none" stroke="#FFF3F2" stroke-width="5" stroke-linecap="round"/></svg>
+          <span>still tangled up in (currently learning): <em>Framer · motion design · HTML &amp; CSS</em></span>
+        </p>
       </div>
     </section>
 
