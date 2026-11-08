@@ -1,0 +1,213 @@
+/* =========================================================
+   05 · CAT BITS
+   ---------------------------------------------------------
+   Small always-on details: the paw cursor,
+   paw-print stamps, and the tiny cat on the progress line.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PAW CURSOR (desktop only, see js/02-cursor.js)
+   A black paw print with a thin white outline, so it shows
+   up on pink, black and everything in between.
+   --------------------------------------------------------- */
+.paw-cursor { display: none; }
+
+.has-paw-cursor, .has-paw-cursor * { cursor: none !important; }
+.has-paw-cursor .paw-cursor {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  color: var(--black);
+  pointer-events: none;
+  opacity: 0;                    /* hidden until the mouse moves (so it doesn't sit in a corner) */
+  transition: opacity .2s;
+}
+.paw-cursor.is-active { opacity: 1; }
+.paw-cursor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  rotate: -18deg;
+  filter: drop-shadow(0 0 1px var(--snow)) drop-shadow(0 0 1px var(--snow)) drop-shadow(0 2px 4px rgb(0 0 0 / 35%));
+  transition: transform .25s cubic-bezier(.3, 1.8, .5, 1);
+}
+/* over links and buttons: the paw gets bigger, ready to tap */
+.paw-cursor.is-over-link svg { transform: scale(1.45) rotate(-10deg); }
+.paw-cursor.is-pressed svg { transform: scale(.85); }
+
+/* paw prints left behind when you click */
+.paw-stamp {
+  position: fixed;
+  z-index: 199;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  color: var(--black);
+  pointer-events: none;
+}
+.paw-stamp svg { width: 100%; height: 100%; filter: drop-shadow(0 0 1px var(--snow)) drop-shadow(0 0 1px var(--snow)); }
+
+
+/* ---------------------------------------------------------
+   TINY GUIDE CAT on the progress line (js/05-guide-cat.js)
+   Kept small and quiet on purpose: it only talks when clicked.
+   --------------------------------------------------------- */
+.cat-track {
+  position: fixed;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 16px;                  /* lifted off the edge so nothing gets cut off */
+  z-index: 40;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(255 202 228 / 22%);
+}
+.on-light .cat-track { background: rgb(11 5 7 / 18%); }
+/* an invisible, taller strip around the line, so it's easy to hover */
+.cat-track::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 34px; }
+
+.cat-track::after {             /* the filled part = how far you've come */
+  content: "";
+  display: block;
+  width: calc(var(--scroll-progress) * 100%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--rose);
+}
+.on-light .cat-track::after { background: var(--black); }
+
+/* one stop per section, spread along the line */
+.cat-track__stops { position: absolute; inset: 0; }
+.cat-stop { position: absolute; top: 1px; left: calc(var(--at) * 100%); }
+.cat-stop button {               /* a bigger invisible button, so it's easy to tap… */
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.cat-stop button::before {       /* …with a small dot drawn in the middle */
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--petal);
+  transition: transform .2s, background .2s;
+}
+.on-light .cat-stop button::before { background: var(--black); }
+.cat-stop button:hover::before { transform: scale(1.6); }
+.cat-stop.is-current button::before { background: var(--rose); box-shadow: 0 0 8px var(--rose); }
+
+/* names only show while you hover over the line or drag the cat */
+.cat-stop__name {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--snow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.on-light .cat-stop__name { color: var(--black); }
+.cat-track:hover .cat-stop__name,
+.is-scrubbing .cat-stop__name { opacity: .9; }
+.cat-stop.is-current .cat-stop__name { font-weight: 700; }
+
+.guide-cat {
+  position: fixed;
+  left: calc(var(--gutter) - var(--cat-size) / 2);   /* the cat's middle starts at the start of the line */
+  bottom: 17px;                                       /* standing on the line */
+  z-index: 41;
+  width: var(--cat-size);
+  opacity: .9;
+  /* --track-w is the line's width in px (set by js/05-guide-cat.js) */
+  transform: translateX(calc(var(--scroll-progress) * var(--track-w, 90vw)));
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.guide-cat:hover { opacity: 1; }
+
+.guide-cat__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--black);
+  cursor: grab;
+  touch-action: none;           /* so dragging on a phone doesn't scroll the page instead */
+  pointer-events: auto;
+  filter: drop-shadow(0 0 1px var(--petal)) drop-shadow(0 0 1px var(--petal));
+}
+.guide-cat__button svg { display: block; width: 100%; overflow: visible; }
+.guide-cat.is-facing-left .guide-cat__button svg { transform: scaleX(-1); }
+.guide-cat.is-hopping .guide-cat__button { animation: hop .45s ease-out; }
+@keyframes hop { 40% { transform: translateY(-18px); } }
+
+/* show "walk" while scrolling, "sit" when still */
+.cat-pose { display: none; }
+.guide-cat.is-walking .cat-pose--walk,
+.guide-cat.is-dragging .cat-pose--walk,
+.guide-cat:not(.is-walking):not(.is-dragging) .cat-pose--sit { display: inline; }
+
+.cat-leg, .cat-tail { transform-box: fill-box; }
+.cat-leg { transform-origin: 50% 0; }
+.guide-cat.is-dragging .cat-leg,
+.guide-cat.is-walking .cat-leg    { animation: leg-swing .3s ease-in-out infinite alternate; }
+.guide-cat.is-dragging .cat-leg--b,
+.guide-cat.is-walking .cat-leg--b { animation-direction: alternate-reverse; }
+@keyframes leg-swing { from { transform: rotate(22deg); } to { transform: rotate(-22deg); } }
+.cat-pose--sit .cat-tail { transform-origin: 0 100%; animation: tail-wag 1.6s ease-in-out infinite alternate; }
+@keyframes tail-wag { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+
+/* speech bubble: hidden unless the cat was just clicked */
+.guide-cat__bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  width: max-content;
+  max-width: min(220px, 60vw);
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 12px 12px 12px 2px;
+  background: var(--snow);
+  color: var(--mahogany);
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(.6);
+  transform-origin: bottom left;
+  transition: opacity .2s, transform .25s cubic-bezier(.2, .8, .2, 1.4);
+}
+.guide-cat.is-talking .guide-cat__bubble { opacity: 1; transform: scale(1); }
+.guide-cat.is-on-right .guide-cat__bubble { left: auto; right: 50%; border-radius: 14px 14px 4px 14px; transform-origin: bottom right; }
+
+/* while dragging, the bubble says where you are */
+.guide-cat.is-dragging .guide-cat__button { cursor: grabbing; }
+
+/* first screen: the cat hops towards the next stop, and that stop pulses */
+.guide-cat.is-beckoning .guide-cat__button { animation: beckon 3.4s ease-in-out infinite; }
+@keyframes beckon {
+  0%, 55%, 100% { transform: none; }
+  64% { transform: translate(10px, -14px); }
+  72% { transform: translate(22px, 0); }
+  86% { transform: translate(22px, 0); }
+}
+.cat-stop.is-next button::before { animation: stop-pulse 1.4s ease-in-out infinite; }
+@keyframes stop-pulse { 50% { transform: scale(1.7); box-shadow: 0 0 12px var(--rose); } }

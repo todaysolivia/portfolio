@@ -1,0 +1,79 @@
+/* =========================================================
+   02 · BASE
+   ---------------------------------------------------------
+   Page defaults, the self-hosted font, the menu, and how the
+   "stage" works.
+   ========================================================= */
+
+/* Apfel Grotezk lives in /fonts (free, by Collletttivo, OFL licence) */
+@font-face { font-family: "Apfel Grotezk"; src: url("../fonts/apfel-grotezk/ApfelGrotezk-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; src: url("../fonts/apfel-grotezk/ApfelGrotezk-Mittel.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; src: url("../fonts/apfel-grotezk/ApfelGrotezk-Fett.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--mahogany);
+  color: var(--snow);
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--rose); color: var(--snow); }
+:focus-visible { outline: 3px solid var(--rose); outline-offset: 4px; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+em { font-style: normal; }
+
+.letter, .word { display: inline-block; }
+
+/* Smooth scrolling (Lenis needs these) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+
+/* ---------------------------------------------------------
+   MENU — just text, no box. Its colour flips between snow and
+   black on light sections (js/03-storyboard.js adds .on-light to <html>).
+   --------------------------------------------------------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px var(--gutter);
+  color: var(--snow);
+  pointer-events: none;
+  transition: color .4s;
+}
+.on-light .nav { color: var(--black); }
+html:not(.has-stage) .nav { position: absolute; }   /* normal page: menu scrolls away */
+.nav a { pointer-events: auto; text-decoration: none; }
+.nav__logo { font-family: var(--font-display); font-size: 24px; }
+.nav__links { display: flex; gap: clamp(16px, 3vw, 40px); font-size: 16px; }
+.nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+
+/* ---------------------------------------------------------
+   THE STAGE
+   Normal page: sections stack top to bottom.
+   Stage mode (html.has-stage): every section sits on top of the
+   others inside one screen, and JavaScript shows one at a time.
+   --------------------------------------------------------- */
+.stage { position: relative; }
+.panel { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; }
+
+.has-stage .stage { height: 100vh; height: 100svh; overflow: hidden; }
+.has-stage .panel { position: absolute; inset: 0; min-height: 0; visibility: hidden; }
+.has-stage .panel.hello { visibility: visible; }   /* only the first section shows at the start */

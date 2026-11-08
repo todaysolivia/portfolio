@@ -1,0 +1,36 @@
+/* =========================================================
+   01 · VARIABLES
+   ---------------------------------------------------------
+   Named values reused everywhere. Change one here and the
+   whole site updates. Use them like:  color: var(--rose);
+   ========================================================= */
+
+:root {
+  /* ---- Colours (Olivia's palette card) ---- */
+  --snow: #FFF3F2;
+  --petal: #FFCAE4;
+  --rose: #F10291;
+  --raspberry: #89235B;
+  --mahogany: #250209;
+
+  /* ---- Extra colours (the "Bold Wister" poster) ---- */
+  --poster: #D93A7E;
+  --lilac: #F0C3E3;
+  --black: #0B0507;
+
+  /* ---- Typefaces ----
+     Caprasimo     → big groovy "fat face" headlines (closest free match to Wister)
+     Melodrama     → elegant high-contrast serif (like the palette card)
+     Apfel Grotezk → small text, labels, menu                                  */
+  --font-display: "Caprasimo", "Cooper Black", serif;
+  --font-serif: "Melodrama", "Didot", Georgia, serif;
+  --font-text: "Apfel Grotezk", "Helvetica Neue", Arial, sans-serif;
+
+  /* ---- Spacing ---- */
+  --gutter: clamp(16px, 3vw, 44px);   /* space at the screen edges */
+  --nav-h: 72px;                      /* room for the menu at the top */
+
+  /* ---- Cat bits ---- */
+  --cat-size: 60px;
+  --scroll-progress: 0;               /* 0 → 1, set by js/05-guide-cat.js */
+}

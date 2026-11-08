@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en" class="on-light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Olivia Li — UI/UX &amp; Graphic Designer</title>
+  <meta name="description" content="Olivia (Runqi) Li, UI/UX and graphic designer. Curiosity didn't kill this cat. It made her a designer." />
+
+  <!-- Turn on the animated version straight away (unless the visitor prefers less motion).
+       js/01-setup.js turns it off again if the animation libraries fail to load. -->
+  <script>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("has-stage");
+    }
+  </script>
+
+  <!-- Fonts:
+       Caprasimo (Google Fonts) · big groovy headlines
+       Melodrama (Fontshare)    · elegant serif lines
+       Apfel Grotezk (Collletttivo, in /fonts) · small text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=melodrama@400,500,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/01-variables.css" />
+  <link rel="stylesheet" href="css/02-base.css" />
+  <link rel="stylesheet" href="css/03-sections.css" />
+  <link rel="stylesheet" href="css/04-transitions.css" />
+  <link rel="stylesheet" href="css/05-cat-bits.css" />
+
+  <!-- Animation libraries: GSAP (animation), ScrollTrigger (scroll), Lenis (smooth scrolling) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+
+  <script src="js/01-setup.js" defer></script>
+  <script src="js/02-cursor.js" defer></script>
+  <script src="js/sections/1-hello.js" defer></script>
+  <script src="js/sections/2-about.js" defer></script>
+  <script src="js/sections/3-curiosity.js" defer></script>
+  <script src="js/sections/4-nine-lives.js" defer></script>
+  <script src="js/sections/5-work.js" defer></script>
+  <script src="js/sections/6-say-hi.js" defer></script>
+  <script src="js/transitions/claw-tear.js" defer></script>
+  <script src="js/transitions/slow-blink.js" defer></script>
+  <script src="js/transitions/lights-out.js" defer></script>
+  <script src="js/transitions/yarn-ball.js" defer></script>
+  <script src="js/transitions/walk-by.js" defer></script>
+  <script src="js/03-storyboard.js" defer></script>
+  <script src="js/04-intro.js" defer></script>
+  <script src="js/05-guide-cat.js" defer></script>
+</head>
+<body>
+
+  <!-- Reusable drawings: draw once, reuse with <use href="#name"/> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="sparkle" viewBox="0 0 100 100">
+        <path fill="currentColor" d="M50 0C53 34 66 47 100 50C66 53 53 66 50 100C47 66 34 53 0 50C34 47 47 34 50 0Z"/>
+      </symbol>
+      <symbol id="sparkle-tall" viewBox="0 0 100 140">
+        <path fill="currentColor" d="M58 0C55 48 64 60 100 66C64 72 56 84 50 140C46 86 36 74 0 70C36 64 48 52 58 0Z"/>
+      </symbol>
+      <symbol id="paw" viewBox="0 0 200 300">
+        <rect x="52" y="-40" width="96" height="230" rx="44" fill="currentColor"/>
+        <ellipse cx="100" cy="205" rx="80" ry="68" fill="currentColor"/>
+        <circle cx="40" cy="246" r="25" fill="currentColor"/><circle cx="78" cy="270" r="25" fill="currentColor"/>
+        <circle cx="122" cy="270" r="25" fill="currentColor"/><circle cx="160" cy="246" r="25" fill="currentColor"/>
+        <ellipse cx="100" cy="212" rx="34" ry="26" fill="#FFCAE4"/>
+        <ellipse cx="40" cy="250" rx="11" ry="12" fill="#FFCAE4"/><ellipse cx="78" cy="274" rx="11" ry="12" fill="#FFCAE4"/>
+        <ellipse cx="122" cy="274" rx="11" ry="12" fill="#FFCAE4"/><ellipse cx="160" cy="250" rx="11" ry="12" fill="#FFCAE4"/>
+        <path d="M34 266L26 312L48 270ZM74 292L70 322L88 294ZM126 292L130 322L112 294ZM166 266L174 312L152 270Z" fill="#FFF3F2"/>
+      </symbol>
+      <symbol id="paw-print" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="66" rx="22" ry="18" fill="currentColor"/>
+        <circle cx="22" cy="40" r="10" fill="currentColor"/><circle cx="39" cy="24" r="10" fill="currentColor"/>
+        <circle cx="61" cy="24" r="10" fill="currentColor"/><circle cx="78" cy="40" r="10" fill="currentColor"/>
+      </symbol>
+      <symbol id="cat-head" viewBox="0 0 40 40">
+        <path fill="currentColor" d="M6 15L7 2L16 9Q20 8 24 9L33 2L34 15Q38 21 36 28Q32 38 20 38Q8 38 4 28Q2 21 6 15Z"/>
+      </symbol>
+      <symbol id="cat-peeking" viewBox="0 0 200 160">
+        <path fill="currentColor" d="M20 160C20 110 40 80 60 70L54 10L96 50C100 49 104 49 108 50L148 10L142 70C162 80 180 110 180 160Z"/>
+        <ellipse cx="78" cy="104" rx="13" ry="15" fill="#FFCAE4"/><ellipse cx="78" cy="104" rx="4" ry="11" fill="#0B0507"/>
+        <ellipse cx="124" cy="104" rx="13" ry="15" fill="#FFCAE4"/><ellipse cx="124" cy="104" rx="4" ry="11" fill="#0B0507"/>
+      </symbol>
+
+      <!-- iridescent wing colours (inspired by Valorant's Evori Dreamwings) -->
+      <linearGradient id="wing-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FFF3F2"/><stop offset=".3" stop-color="#FFCAE4"/>
+        <stop offset=".6" stop-color="#C6A4F2"/><stop offset="1" stop-color="#F10291"/>
+      </linearGradient>
+
+      <!-- a little butterfly -->
+      <symbol id="butterfly" viewBox="0 0 40 30">
+        <path d="M20 15C10 0 0 2 2 12C3 18 12 18 20 15ZM20 15C30 0 40 2 38 12C37 18 28 18 20 15ZM20 15C12 20 8 28 14 28C18 28 20 22 20 15ZM20 15C28 20 32 28 26 28C22 28 20 22 20 15Z" fill="currentColor"/>
+      </symbol>
+    </defs>
+  </svg>
+
+
+  <!-- ============ MENU ============ -->
+  <nav class="nav" aria-label="Main">
+    <a class="nav__logo" href="#hello" data-goto="hello">olivia li</a>
+    <ul class="nav__links">
+      <li><a href="#about" data-goto="about">about</a></li>
+      <li><a href="#work" data-goto="work">work</a></li>
+      <li><a href="#say-hi" data-goto="say-hi">say hi</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ============ THE STAGE ============
+       All sections sit here. With animations on, the stage is pinned to the
+       screen and scrolling plays them one after another (js/03-storyboard.js).
+       Without animations they simply stack like a normal page. -->
+  <main class="stage">
+
+    <!-- ===== 1 · HELLO ===== -->
+    <section class="panel hello" id="hello" data-name="hello" aria-label="Olivia Li">
+      <p class="hello__line">curiosity didn't kill this cat.<br><em>it made her a designer.</em></p>
+
+      <ul class="hello__facts">
+        <li>UI/UX + graphic designer</li>
+        <li>Bachelor of UI/UX, year two</li>
+        <li>also answers to Runqi</li>
+      </ul>
+
+      <!-- the big cat, standing behind the name. Its eyes follow your cursor. -->
+      <svg class="hello__cat" viewBox="0 0 400 300" aria-hidden="true">
+        <path class="hello__tail" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" d="M60 160C20 140 10 90 30 50C42 26 30 8 18 4"/>
+        <path fill="currentColor" d="M40 300C40 250 30 200 60 150C95 90 170 55 240 60C280 63 300 75 315 85L322 40L345 78L362 50L366 100C385 115 392 135 388 155C384 178 366 190 346 192L352 300H316L304 200C280 205 250 205 220 200L180 300H140L160 195C125 205 100 230 90 300Z"/>
+        <ellipse cx="350" cy="132" rx="8" ry="10" fill="#FFCAE4"/><ellipse class="pupil" data-range="3" cx="350" cy="132" rx="2.6" ry="8" fill="#0B0507"/>
+        <ellipse cx="372" cy="130" rx="8" ry="10" fill="#FFCAE4"/><ellipse class="pupil" data-range="3" cx="372" cy="130" rx="2.6" ry="8" fill="#0B0507"/>
+      </svg>
+
+      <svg class="hello__sparkle" viewBox="0 0 100 140" aria-hidden="true"><use href="#sparkle-tall"/></svg>
+
+      <!-- The cue: paw prints walking down the page, to say "keep going this way".
+           They fade away once you start scrolling. -->
+      <div class="hello__trail" aria-hidden="true">
+        <svg class="hello__print" viewBox="0 0 100 100"><use href="#paw-print"/></svg>
+        <svg class="hello__print" viewBox="0 0 100 100"><use href="#paw-print"/></svg>
+        <svg class="hello__print" viewBox="0 0 100 100"><use href="#paw-print"/></svg>
+        <svg class="hello__print" viewBox="0 0 100 100"><use href="#paw-print"/></svg>
+        <span class="hello__scroll">scroll</span>
+      </div>
+
+      <!-- each letter is its own <span> so the cursor can bat them around -->
+      <h1 class="hello__name" aria-label="Olivia Li">
+        <span class="hello__word" aria-hidden="true"><span class="letter">O</span><span class="letter">l</span><span class="letter">i</span></span><span class="hello__word" aria-hidden="true"><span class="letter">v</span><span class="letter">i</span><span class="letter">a</span></span>
+        <span class="hello__word hello__word--last" aria-hidden="true"><span class="letter">L</span><span class="letter">i</span></span>
+      </h1>
+
+    </section>
+
+
+    <!-- ===== 2 · ABOUT ME ===== -->
+    <section class="panel about" id="about" data-name="about">
+      <div class="about__photo">
+        <img src="images/olivia.jpg" alt="Olivia in a grey beanie, taking a selfie in a little gift shop" />
+        <!-- a cat peeking up into the photo -->
+        <svg class="about__photo-cat" viewBox="0 0 200 160" aria-hidden="true"><use href="#cat-peeking"/></svg>
+      </div>
+
+      <div class="about__body">
+        <h2 class="about__title">about me</h2>
+        <!-- EDIT: Olivia's bio, in her own words -->
+        <p class="about__bio split-words">Hi, I'm Olivia. I study UI/UX and I've spent years making posters, brand identities and way too many sparkles. I like loud colour, chunky type and work with a bit of attitude.</p>
+
+        <!-- Facts as a paint-swatch strip: lightest to darkest -->
+        <ul class="facts">
+          <li class="fact fact--snow"><span>name</span><strong>Olivia (Runqi) Li</strong></li>
+          <li class="fact fact--petal"><span>studying</span><strong>Bachelor of UI/UX · year 2</strong></li>
+          <li class="fact fact--rose"><span>makes</span><strong>interfaces, brands, posters</strong></li>
+          <li class="fact fact--raspberry"><span>colour</span><strong>pink, obviously</strong></li>
+          <li class="fact fact--black"><span>fan of</span><strong>BLACKPINK 🖤🩷</strong></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ===== 3 · CURIOSITY (how it started) ===== -->
+    <section class="panel curiosity" id="curiosity" data-name="story" aria-label="How it started">
+      <!-- EDIT: rewrite in Olivia's own words -->
+      <ol class="chase">
+        <li class="chase__line chase__line--1">Before I knew what UI/UX was, <em>I was making posters.</em></li>
+        <li class="chase__line chase__line--2">Birthday cards. Fan edits. <em>Way too many sparkles.</em></li>
+        <li class="chase__line chase__line--3">Then I wanted to know <em>why things work.</em></li>
+        <li class="chase__line chase__line--4">So I followed the light into <em>UI/UX.</em></li>
+      </ol>
+
+      <svg class="chase__dot" viewBox="0 0 100 100" aria-hidden="true"><use href="#sparkle"/></svg>
+
+      <!-- floating specks of light (added by js/sections/3-curiosity.js) -->
+      <div class="motes" aria-hidden="true"></div>
+
+      <!-- the cat's magical "familiar" form: floating, with butterfly wings.
+           data-watch="dot" = its eyes follow the sparkle -->
+      <svg class="familiar" viewBox="0 0 200 200" data-watch="dot" aria-hidden="true">
+        <path class="familiar__wing familiar__wing--left" d="M96 118C62 52 8 48 14 92C18 122 52 128 74 130C44 140 34 176 62 178C82 180 92 150 96 132Z" fill="url(#wing-grad)" stroke="#FFF3F2" stroke-width="2" opacity=".92"/>
+        <path class="familiar__wing familiar__wing--right" d="M104 118C138 52 192 48 186 92C182 122 148 128 126 130C156 140 166 176 138 178C118 180 108 150 104 132Z" fill="url(#wing-grad)" stroke="#FFF3F2" stroke-width="2" opacity=".92"/>
+        <path d="M118 170C150 176 156 150 140 140" fill="none" stroke="#0B0507" stroke-width="9" stroke-linecap="round"/>
+        <ellipse cx="100" cy="146" rx="32" ry="34" fill="#0B0507"/>
+        <circle cx="100" cy="98" r="34" fill="#0B0507"/>
+        <path d="M70 82L68 48L92 68ZM108 68L132 48L130 82Z" fill="#0B0507"/>
+        <ellipse cx="86" cy="98" rx="10" ry="12" fill="#FFCAE4"/><ellipse class="pupil" data-range="4" cx="86" cy="98" rx="3.4" ry="9" fill="#0B0507"/>
+        <ellipse cx="114" cy="98" rx="10" ry="12" fill="#FFCAE4"/><ellipse class="pupil" data-range="4" cx="114" cy="98" rx="3.4" ry="9" fill="#0B0507"/>
+        <path d="M96 113H104L100 118Z" fill="#F10291"/>
+        <use href="#sparkle" x="92" y="70" width="16" height="16" color="#FFCAE4"/>
+      </svg>
+    </section>
+
+
+    <!-- ===== 4 · NINE LIVES (study + skills) ===== -->
+    <section class="panel lives" id="nine-lives" data-name="skills">
+
+      <div class="lives__beat lives__beat--study">
+        <h2 class="lives__title">nine lives</h2>
+        <p class="lives__sub">Design is trying, failing and trying again. Lucky cats get nine.</p>
+        <div class="lives__meter" aria-label="Four of nine lives used">
+          <svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg><svg class="life" viewBox="0 0 40 40"><use href="#cat-head"/></svg>
+        </div>
+
+        <!-- EDIT: study + experience -->
+        <ol class="timeline">
+          <span class="timeline__line" aria-hidden="true"></span>
+          <li class="timeline__item"><span class="timeline__no">01</span><h3>Graphic design</h3><p>Posters, branding and social graphics for friends, clubs and myself. Still going.</p></li>
+          <li class="timeline__item"><span class="timeline__no">02</span><h3>UI/UX, year one</h3><p>Research, wireframes, visual design, my first real prototypes.</p></li>
+          <li class="timeline__item"><span class="timeline__no">03</span><h3>Year two, sem one</h3><p>Real users, design systems, bigger apps. Done ✓</p></li>
+          <li class="timeline__item"><span class="timeline__no">04</span><h3>Next life</h3><p>Year two, semester two. Loading…</p></li>
+        </ol>
+      </div>
+
+      <div class="lives__beat lives__beat--skills">
+        <div class="skills__head">
+          <svg class="skills__yarn" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" fill="#F10291"/>
+            <path d="M10 40C35 25 70 30 92 52M8 60C35 45 72 52 88 74M20 80C40 64 66 70 76 90M30 10C24 40 30 70 52 96M60 6C50 30 56 60 80 84" fill="none" stroke="#FFCAE4" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <h2 class="lives__title lives__title--small">untangling things</h2>
+            <!-- EDIT: what Olivia is learning right now -->
+            <p class="skills__note"><span class="skills__fave-key">✦</span> = what I reach for most &nbsp;·&nbsp; currently learning: <em>Framer, motion design, HTML &amp; CSS</em></p>
+          </div>
+        </div>
+
+        <!-- EDIT: keep only the skills Olivia actually has. class="is-fave" adds the ✦ -->
+        <div class="skills">
+          <div class="skills__group"><h3>tools</h3><ul><li class="is-fave">Figma</li><li>FigJam</li><li class="is-fave">Illustrator</li><li class="is-fave">Photoshop</li><li>InDesign</li><li>Miro</li><li>Notion</li></ul></div>
+          <div class="skills__group"><h3>ux</h3><ul><li>User research</li><li>Interviews</li><li>Personas</li><li>Journey maps</li><li>Information architecture</li><li class="is-fave">Wireframing</li><li>Usability testing</li><li>Accessibility</li></ul></div>
+          <div class="skills__group"><h3>ui</h3><ul><li class="is-fave">Prototyping</li><li>Interaction design</li><li>Design systems</li><li>Responsive design</li><li class="is-fave">Typography</li><li>Colour &amp; layout</li><li>Branding</li></ul></div>
+          <div class="skills__group"><h3>soft skills</h3><ul><li>Communication</li><li>Teamwork</li><li>Presenting ideas</li><li>Empathy</li><li>Giving &amp; taking feedback</li><li>Problem solving</li></ul></div>
+        </div>
+
+        <!-- EDIT: Olivia's real process, in her words -->
+        <div class="process">
+          <h3 class="process__title">how I untangle a problem</h3>
+          <svg class="process__thread" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 42C50 52 60 30 100 30S200 2 300 30S400 58 500 30S600 2 700 30S800 58 900 30S975 22 1000 26"/>
+          </svg>
+          <ol class="process__steps">
+            <li><span class="process__knot"></span><strong>listen</strong><span>research &amp; interviews</span></li>
+            <li><span class="process__knot"></span><strong>find the knot</strong><span>define the real problem</span></li>
+            <li><span class="process__knot"></span><strong>sketch</strong><span>lots of ideas, fast</span></li>
+            <li><span class="process__knot"></span><strong>prototype</strong><span>make it clickable in Figma</span></li>
+            <li><span class="process__knot"></span><strong>test &amp; tweak</strong><span>with real people, then again</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== 5 · WORK ===== -->
+    <section class="panel work" id="work" data-name="work">
+      <h2 class="work__title">work</h2>
+      <p class="work__note">if it fits, I sits. projects I jumped into head first →</p>
+
+      <!-- EDIT: projects. Copy a whole <a class="project">…</a> block to add one.
+           For a real image, put <img src="images/file.jpg" alt="…"> inside .project__cover -->
+      <div class="work__window">
+        <div class="work__track">
+          <a class="project" href="#">
+            <span class="project__no">01</span>
+            <div class="project__cover cover--black"><span>Mobile<br>App</span></div>
+            <h3>Mobile app case study</h3><p>UI/UX · research, flows, hi-fi prototype · 2026</p>
+          </a>
+          <a class="project" href="#">
+            <span class="project__no">02</span>
+            <div class="project__cover cover--rose"><span>Brand<br>Identity</span></div>
+            <h3>Brand identity</h3><p>Graphic · logo, colour system, guidelines · 2026</p>
+          </a>
+          <a class="project" href="#">
+            <span class="project__no">03</span>
+            <div class="project__cover cover--poster"><span>Web<br>Redesign</span></div>
+            <h3>Website redesign</h3><p>UI/UX · usability audit, responsive redesign · 2025</p>
+          </a>
+          <a class="project" href="#">
+            <span class="project__no">04</span>
+            <div class="project__cover cover--raspberry"><span>Poster<br>Series</span></div>
+            <h3>Event poster series</h3><p>Graphic · type-led posters, print + social · 2025</p>
+          </a>
+          <a class="project" href="#">
+            <span class="project__no">05</span>
+            <div class="project__cover cover--snow"><span>Pack&shy;aging</span></div>
+            <h3>Packaging design</h3><p>Graphic · concept to mockup · 2025</p>
+          </a>
+          <a class="project" href="#">
+            <span class="project__no">06</span>
+            <div class="project__cover cover--mahogany"><span>Design<br>System</span></div>
+            <h3>Mini design system</h3><p>UI/UX · components, tokens, docs · 2026</p>
+          </a>
+        </div>
+      </div>
+
+      <svg class="work__paw" viewBox="0 0 200 300" aria-hidden="true"><use href="#paw" transform="rotate(180 100 150)"/></svg>
+    </section>
+
+
+    <!-- ===== 6 · SAY HI ===== -->
+    <section class="panel say-hi" id="say-hi" data-name="say hi">
+      <p class="say-hi__line">let's make something<br><em>bold</em> together.</p>
+      <!-- EDIT: real links (LinkedIn, Behance, Instagram, résumé) -->
+      <a class="say-hi__email" href="mailto:runqili97@gmail.com">runqili97@gmail.com</a>
+      <ul class="say-hi__links">
+        <li><a href="#">LinkedIn ↗</a></li>
+        <li><a href="#">Behance ↗</a></li>
+        <li><a href="#">Instagram ↗</a></li>
+        <li><a href="#">Résumé ↓</a></li>
+      </ul>
+
+      <p class="say-hi__big" aria-hidden="true"><span class="letter">s</span><span class="letter">a</span><span class="letter">y</span>&nbsp;<span class="letter">h</span><span class="letter">i</span></p>
+
+      <svg class="say-hi__cat" viewBox="0 0 120 90" aria-hidden="true">
+        <ellipse cx="64" cy="74" rx="36" ry="15" fill="currentColor"/>
+        <circle cx="34" cy="72" r="14" fill="currentColor"/>
+        <path d="M24 64L22 50L33 59ZM36 58L44 48L45 62Z" fill="currentColor"/>
+        <path d="M98 78C100 92 56 94 34 88" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+        <path d="M26 72q3 3 6 0M36 72q3 3 6 0" fill="none" stroke="#FFCAE4" stroke-width="2" stroke-linecap="round"/>
+        <text class="zzz" x="50" y="50">z</text>
+        <text class="zzz" x="62" y="38">z</text>
+      </svg>
+
+      <p class="say-hi__footer">© 2026 Olivia (Runqi) Li</p>
+    </section>
+
+
+    <!-- ============ TRANSITIONS ============
+         Full-screen effects that play between sections (js/transitions/). -->
+
+    <!-- Claw tear: hello → about -->
+    <div class="fx fx--claw" aria-hidden="true">
+      <div class="tear"></div>   <!-- js copies the hello section in here as 4 torn strips -->
+      <svg class="claw-marks" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+      <svg class="claw-paw" viewBox="0 0 200 330"><use href="#paw"/></svg>
+      <div class="claw-flash"></div>
+    </div>
+
+    <!-- Lights out: curiosity → nine lives -->
+    <div class="fx fx--spell" aria-hidden="true">
+      <div class="spell-light"></div>
+      <svg class="spell-rings" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="10"/>
+      </svg>
+    </div>
+
+    <!-- Slow blink    <!-- Slow blink: about → curiosity -->
+    <div class="fx fx--blink" aria-hidden="true">
+      <svg class="lid lid--top" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M-5 -5H105V55Q50 80 -5 55Z" fill="#0B0507"/>
+        <path d="M-5 55Q50 80 105 55" fill="none" stroke="#F10291" stroke-width="4" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="lid lid--bottom" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M-5 105H105V45Q50 20 -5 45Z" fill="#0B0507"/>
+        <path d="M-5 45Q50 20 105 45" fill="none" stroke="#F10291" stroke-width="4" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <p class="blink-caption">in cat, a slow blink means<br><span>“I trust you”</span></p>
+    </div>
+
+    <!-- Giant ball of yarn: nine lives → work -->
+    <div class="fx fx--yarn" aria-hidden="true">
+      <svg class="yarn-thread" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M-5 78C15 60 30 95 48 74S78 50 105 66" fill="none" stroke="#F10291" stroke-width="10" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="giant-yarn" viewBox="0 0 200 200">
+        <defs>
+          <clipPath id="yarn-clip"><circle cx="100" cy="100" r="99"/></clipPath>
+          <!-- one band of wound strands; it's reused 3 times at different angles -->
+          <g id="yarn-band" fill="none" stroke-linecap="round">
+            <path d="M-20 52Q100 20 220 52"/><path d="M-20 64Q100 32 220 64"/><path d="M-20 76Q100 44 220 76"/>
+            <path d="M-20 88Q100 56 220 88"/><path d="M-20 100Q100 68 220 100"/><path d="M-20 112Q100 80 220 112"/>
+          </g>
+        </defs>
+        <circle cx="100" cy="100" r="99" fill="#F10291"/>
+        <g clip-path="url(#yarn-clip)">
+          <use href="#yarn-band" stroke="#C4006F" stroke-width="7"/>
+          <use href="#yarn-band" stroke="#FFCAE4" stroke-width="3" transform="rotate(62 100 100)"/>
+          <use href="#yarn-band" stroke="#89235B" stroke-width="5" transform="rotate(-58 100 100)"/>
+          <use href="#yarn-band" stroke="#FFF3F2" stroke-width="1.6" opacity=".7" transform="rotate(118 100 100) translate(0 30)"/>
+        </g>
+        <!-- soft shading so it looks round -->
+        <circle cx="100" cy="100" r="99" fill="url(#yarn-shade)"/>
+        <defs><radialGradient id="yarn-shade" cx="35%" cy="30%" r="75%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#250209" stop-opacity=".45"/></radialGradient></defs>
+      </svg>
+    </div>
+
+    <!-- Walk-by: work → say hi -->
+    <div class="fx fx--walk" aria-hidden="true">
+      <svg class="walker" viewBox="0 0 120 90">
+        <path class="walker__tail" d="M28 50C10 46 8 28 16 16" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+        <rect class="walker__leg walker__leg--a" x="30" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+        <rect class="walker__leg walker__leg--b" x="42" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+        <rect class="walker__leg walker__leg--b" x="68" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+        <rect class="walker__leg walker__leg--a" x="80" y="58" width="9" height="28" rx="4.5" fill="currentColor"/>
+        <rect x="24" y="40" width="68" height="30" rx="15" fill="currentColor"/>
+        <circle cx="90" cy="38" r="17" fill="currentColor"/>
+        <path d="M77 30L79 11L90 23ZM92 23L102 11L104 30Z" fill="currentColor"/>
+        <ellipse cx="88" cy="37" rx="3.2" ry="4.2" fill="#FFCAE4"/>
+        <ellipse cx="98" cy="37" rx="3.2" ry="4.2" fill="#FFCAE4"/>
+      </svg>
+    </div>
+
+  </main>
+
+
+
+
+  <!-- ============ ALWAYS-ON CAT BITS ============ -->
+  <!-- Paw cursor (desktop only): black paw with a white outline, so it shows on every colour -->
+  <div class="paw-cursor" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#paw-print"/></svg></div>
+
+  <!-- The progress line: one stop per section. Drag the cat (or tap a stop) to move. -->
+  <nav class="cat-track" aria-label="Where you are">
+    <ol class="cat-track__stops"></ol>   <!-- filled in by js/05-guide-cat.js -->
+  </nav>
+  <div class="guide-cat">
+    <p class="guide-cat__bubble" aria-live="polite"></p>
+    <button class="guide-cat__button" type="button" aria-label="Drag the cat to move through the site, or tap to pet it">
+      <svg viewBox="0 0 120 90" fill="currentColor" aria-hidden="true">
+        <g class="cat-pose cat-pose--walk">
+          <path class="cat-tail" d="M28 50C10 46 8 28 16 16" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+          <rect class="cat-leg cat-leg--a" x="30" y="58" width="9" height="28" rx="4.5"/>
+          <rect class="cat-leg cat-leg--b" x="42" y="58" width="9" height="28" rx="4.5"/>
+          <rect class="cat-leg cat-leg--b" x="68" y="58" width="9" height="28" rx="4.5"/>
+          <rect class="cat-leg cat-leg--a" x="80" y="58" width="9" height="28" rx="4.5"/>
+          <rect x="24" y="40" width="68" height="30" rx="15"/>
+          <circle cx="90" cy="38" r="17"/>
+          <path d="M77 30L79 11L90 23ZM92 23L102 11L104 30Z"/>
+          <ellipse cx="88" cy="37" rx="3.2" ry="4.2" fill="#FFCAE4"/>
+          <ellipse cx="98" cy="37" rx="3.2" ry="4.2" fill="#FFCAE4"/>
+        </g>
+        <g class="cat-pose cat-pose--sit">
+          <path class="cat-tail" d="M76 86C100 88 106 66 96 58" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+          <path d="M38 88C36 66 44 50 60 50C76 50 84 66 82 88Z"/>
+          <circle cx="60" cy="36" r="18"/>
+          <path d="M45 28L46 8L58 21ZM62 21L74 8L75 28Z"/>
+          <ellipse cx="53" cy="35" rx="3.6" ry="4.6" fill="#FFCAE4"/>
+          <ellipse cx="67" cy="35" rx="3.6" ry="4.6" fill="#FFCAE4"/>
+        </g>
+      </svg>
+    </button>
+  </div>
+
+</body>
+</html>

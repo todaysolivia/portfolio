@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore black and pink color directions for Olivia's portfolio."
+    />
+    <title>Olivia — Portfolio color directions</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        --page: #111014;
+        --panel: #1c191f;
+        --muted: #a7a0aa;
+        --text: #f7f3f6;
+        --line: #39333b;
+        --accent: #ff4fa3;
+        --accent-soft: #ffb5d8;
+        --wash: #4a1732;
+        --pill: #2b252d;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(ellipse at 85% 4%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 32rem),
+          var(--page);
+        color: var(--text);
+        transition: background-color 240ms ease;
+      }
+
+      button { font: inherit; }
+
+      .shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 82px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .wordmark {
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 750;
+        letter-spacing: .12em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .wordmark span { color: var(--accent); }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--accent-soft);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+        box-shadow: 0 0 14px var(--accent);
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 260px;
+        align-items: end;
+        gap: 32px;
+        padding: 82px 0 48px;
+      }
+
+      h1 {
+        max-width: 730px;
+        margin: 18px 0 15px;
+        font-size: clamp(42px, 7vw, 78px);
+        line-height: .98;
+        letter-spacing: -.065em;
+      }
+
+      h1 em { color: var(--accent); font-style: normal; }
+
+      .intro p {
+        max-width: 580px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .aside-note {
+        margin: 0 0 5px;
+        padding: 17px 18px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--panel) 70%, transparent);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .aside-note strong { color: var(--text); font-weight: 650; }
+
+      .directions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        padding-bottom: 56px;
+      }
+
+      .direction {
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel);
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .direction:hover { transform: translateY(-3px); border-color: var(--choice-accent); }
+      .direction[aria-pressed="true"] {
+        border-color: var(--choice-accent);
+        box-shadow: 0 0 0 1px var(--choice-accent), 0 15px 40px color-mix(in srgb, var(--choice-accent) 12%, transparent);
+      }
+
+      .direction:focus-visible, .copy-button:focus-visible {
+        outline: 3px solid var(--accent-soft);
+        outline-offset: 3px;
+      }
+
+      .palette-name { margin: 0 0 5px; font-size: 17px; font-weight: 700; }
+      .palette-mood { margin: 0 0 17px; color: var(--muted); font-size: 12px; }
+
+      .swatches { display: flex; gap: 7px; margin-bottom: 19px; }
+      .swatch {
+        display: grid;
+        flex: 1;
+        height: 53px;
+        place-items: end start;
+        padding: 5px;
+        border: 1px solid rgb(255 255 255 / 10%);
+        border-radius: 7px;
+      }
+      .swatch span {
+        color: rgb(255 255 255 / 84%);
+        font-size: 8px;
+        font-weight: 650;
+        text-shadow: 0 1px 5px #000;
+      }
+
+      .palette-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .selected-label {
+        color: var(--choice-accent);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      .preview-section { padding-bottom: 86px; }
+      .preview-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      .preview-heading h2 { margin: 0; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+      .preview-heading span { color: var(--muted); font-size: 12px; }
+
+      .preview {
+        display: grid;
+        grid-template-columns: 1fr .8fr;
+        min-height: 310px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+      }
+
+      .preview-copy { display: flex; flex-direction: column; justify-content: center; padding: 38px clamp(24px, 6vw, 70px); }
+      .preview-copy .eyebrow { font-size: 9px; }
+      .preview-copy h3 { max-width: 480px; margin: 16px 0 12px; font-size: clamp(34px, 5vw, 56px); letter-spacing: -.06em; line-height: 1; }
+      .preview-copy h3 span { color: var(--accent); }
+      .preview-copy p { max-width: 390px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+      .preview-actions { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
+      .preview-button { padding: 10px 14px; border: 0; border-radius: 6px; background: var(--accent); color: #160e14; font-size: 11px; font-weight: 800; }
+      .preview-link { color: var(--text); font-size: 11px; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+
+      .art-panel {
+        display: grid;
+        min-height: 280px;
+        place-items: center;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 54% 46%, color-mix(in srgb, var(--accent) 58%, transparent), transparent 32%),
+          linear-gradient(145deg, var(--wash), #17141a 74%);
+      }
+
+      .art-card {
+        position: relative;
+        display: grid;
+        width: min(230px, 67%);
+        aspect-ratio: .83;
+        place-items: center;
+        border: 1px solid rgb(255 255 255 / 18%);
+        border-radius: 110px 110px 18px 18px;
+        background:
+          radial-gradient(ellipse at 50% 28%, color-mix(in srgb, var(--accent-soft) 85%, white), transparent 28%),
+          linear-gradient(165deg, color-mix(in srgb, var(--accent) 82%, #fff), var(--wash) 68%, #17141a);
+        box-shadow: 0 20px 70px color-mix(in srgb, var(--accent) 25%, transparent);
+        transform: rotate(5deg);
+      }
+
+      .art-card::before, .art-card::after {
+        position: absolute;
+        border: 1px solid rgb(255 255 255 / 38%);
+        border-radius: 50%;
+        content: "";
+      }
+      .art-card::before { width: 75%; aspect-ratio: 1; }
+      .art-card::after { width: 57%; aspect-ratio: 1; }
+      .art-mark { z-index: 1; color: white; font-size: clamp(50px, 8vw, 78px); font-weight: 900; letter-spacing: -.12em; text-shadow: 0 5px 25px rgb(0 0 0 / 25%); }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px 0 28px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .copy-button { padding: 0; border: 0; background: none; color: var(--accent-soft); cursor: pointer; font-size: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+      @media (max-width: 760px) {
+        .intro { grid-template-columns: 1fr; gap: 22px; padding-top: 62px; }
+        .aside-note { max-width: 460px; }
+        .directions { grid-template-columns: 1fr; }
+        .direction { padding: 18px; }
+        .swatch { height: 45px; }
+        .preview { grid-template-columns: 1fr; }
+        .art-panel { min-height: 260px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="wordmark" href="#" aria-label="Olivia portfolio color directions">OLIVIA<span>.</span></a>
+        <span class="eyebrow">Portfolio direction</span>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <div>
+            <span class="eyebrow">A little pink, a lot of personality</span>
+            <h1 id="page-title">Let's find Olivia's <em>signature</em> palette.</h1>
+            <p>Three black-and-pink directions, each with a different mood. Pick one to see how it could feel on the portfolio.</p>
+          </div>
+          <p class="aside-note"><strong>Fan-inspired, not fan-site.</strong><br />A nod to BLACKPINK's bold contrast, with an original look built around Olivia.</p>
+        </section>
+
+        <section class="directions" aria-label="Choose a color palette">
+          <button class="direction" type="button" aria-pressed="true" data-palette="neon" style="--choice-accent:#ff4fa3">
+            <p class="palette-name">01 / On the Stage</p>
+            <p class="palette-mood">High energy · vivid · confident</p>
+            <div class="swatches" aria-label="Colors: ink, hot pink, rose, plum, white">
+              <span class="swatch" style="background:#111014"><span>#111014</span></span>
+              <span class="swatch" style="background:#ff4fa3"><span>#FF4FA3</span></span>
+              <span class="swatch" style="background:#ffb5d8"><span>#FFB5D8</span></span>
+              <span class="swatch" style="background:#4a1732"><span>#4A1732</span></span>
+              <span class="swatch" style="background:#f7f3f6"><span>#F7F3F6</span></span>
+            </div>
+            <div class="palette-meta"><span>Bold and unmistakable</span><span class="selected-label">Selected</span></div>
+          </button>
+
+          <button class="direction" type="button" aria-pressed="false" data-palette="rose" style="--choice-accent:#f27da9">
+            <p class="palette-name">02 / Rose Edit</p>
+            <p class="palette-mood">Soft edge · warm · expressive</p>
+            <div class="swatches" aria-label="Colors: charcoal, rose, blush, berry, cream">
+              <span class="swatch" style="background:#171315"><span>#171315</span></span>
+              <span class="swatch" style="background:#f27da9"><span>#F27DA9</span></span>
+              <span class="swatch" style="background:#ffc4d8"><span>#FFC4D8</span></span>
+              <span class="swatch" style="background:#71334e"><span>#71334E</span></span>
+              <span class="swatch" style="background:#fff7f8"><span>#FFF7F8</span></span>
+            </div>
+            <div class="palette-meta"><span>Polished with a softer touch</span><span class="selected-label">Preview</span></div>
+          </button>
+
+          <button class="direction" type="button" aria-pressed="false" data-palette="after-hours" style="--choice-accent:#df5aff">
+            <p class="palette-name">03 / After Hours</p>
+            <p class="palette-mood">Electric · moody · unexpected</p>
+            <div class="swatches" aria-label="Colors: midnight, electric pink, lilac, aubergine, silver">
+              <span class="swatch" style="background:#0d0b12"><span>#0D0B12</span></span>
+              <span class="swatch" style="background:#df5aff"><span>#DF5AFF</span></span>
+              <span class="swatch" style="background:#ffa9d9"><span>#FFA9D9</span></span>
+              <span class="swatch" style="background:#3a1c50"><span>#3A1C50</span></span>
+              <span class="swatch" style="background:#f4eef8"><span>#F4EEF8</span></span>
+            </div>
+            <div class="palette-meta"><span>A little more night-life</span><span class="selected-label">Preview</span></div>
+          </button>
+        </section>
+
+        <section class="preview-section" aria-labelledby="preview-title">
+          <div class="preview-heading">
+            <h2 id="preview-title">Portfolio preview</h2>
+            <span id="active-name" aria-live="polite">01 / On the Stage</span>
+          </div>
+          <div class="preview">
+            <div class="preview-copy">
+              <span class="eyebrow">Olivia · Designer &amp; Creative</span>
+              <h3>Making ideas <span>impossible</span> to ignore.</h3>
+              <p>A warm introduction goes here. Tell visitors what Olivia does, what she cares about, and what makes her work different.</p>
+              <div class="preview-actions">
+                <span class="preview-button">Explore my work ↗</span>
+                <a class="preview-link" href="mailto:hello@olivia.example">Say hello</a>
+              </div>
+            </div>
+            <div class="art-panel" aria-label="Abstract pink and black portfolio artwork">
+              <div class="art-card"><span class="art-mark">O.</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Color study for Olivia's portfolio · Choose a direction to preview it</span>
+        <button class="copy-button" type="button" id="copy-colors">Copy selected hex codes</button>
+      </footer>
+    </div>
+
+    <script>
+      const palettes = {
+        neon: {
+          name: "01 / On the Stage",
+          colors: ["#111014", "#FF4FA3", "#FFB5D8", "#4A1732", "#F7F3F6"],
+          tokens: { page: "#111014", panel: "#1C191F", muted: "#A7A0AA", text: "#F7F3F6", line: "#39333B", accent: "#FF4FA3", accentSoft: "#FFB5D8", wash: "#4A1732" }
+        },
+        rose: {
+          name: "02 / Rose Edit",
+          colors: ["#171315", "#F27DA9", "#FFC4D8", "#71334E", "#FFF7F8"],
+          tokens: { page: "#171315", panel: "#211A1E", muted: "#B5A5AB", text: "#FFF7F8", line: "#44343C", accent: "#F27DA9", accentSoft: "#FFC4D8", wash: "#71334E" }
+        },
+        "after-hours": {
+          name: "03 / After Hours",
+          colors: ["#0D0B12", "#DF5AFF", "#FFA9D9", "#3A1C50", "#F4EEF8"],
+          tokens: { page: "#0D0B12", panel: "#19151E", muted: "#A99DAF", text: "#F4EEF8", line: "#393044", accent: "#DF5AFF", accentSoft: "#FFA9D9", wash: "#3A1C50" }
+        }
+      };
+
+      const buttons = [...document.querySelectorAll(".direction")];
+      const activeName = document.querySelector("#active-name");
+      const copyButton = document.querySelector("#copy-colors");
+      let selected = "neon";
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          selected = button.dataset.palette;
+          const palette = palettes[selected];
+          for (const [token, value] of Object.entries(palette.tokens)) {
+            document.documentElement.style.setProperty(`--${token.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`, value);
+          }
+          buttons.forEach((item) => {
+            const isSelected = item === button;
+            item.setAttribute("aria-pressed", String(isSelected));
+            item.querySelector(".selected-label").textContent = isSelected ? "Selected" : "Preview";
+          });
+          activeName.textContent = palette.name;
+        });
+      });
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(palettes[selected].colors.join("  "));
+          copyButton.textContent = "Copied!";
+          window.setTimeout(() => { copyButton.textContent = "Copy selected hex codes"; }, 1600);
+        } catch (error) {
+          copyButton.textContent = "Clipboard unavailable";
+          window.setTimeout(() => { copyButton.textContent = "Copy selected hex codes"; }, 2200);
+        }
+      });
+    </script>
+  </body>
+</html>
